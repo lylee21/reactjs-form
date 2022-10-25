@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
@@ -13,6 +12,11 @@ export default class Form extends Component {
     email: "",
     contactNum: "",
     about: "",
+    nameError: "",
+    dobError: "",
+    emailError: "",
+    contactError: "",
+    abtError: "",
     error: {
       nameErr: "",
       dateErr: "",
@@ -45,32 +49,12 @@ export default class Form extends Component {
     if (e.target.id == 'abtInput') {
       this.abtValidation(e.target.value)
     }
-    
-    // this.setState ({
-    //   name: e.target.value,
-    //   email: e.target.value,
-    //   contactNum: e.target.value
-    // })
+
   }
 
-  // blurHandler = (e) => {
-  //   console.log('onBlur')
-  //   if (e.relatedTarget.id = "nameInput") {
-  //     this.nameValidation(e.target.value)
-  //   }
-
-  //   if (e.relatedTarget.id = "emailInput") {
-  //     this.emailValidation(e.target.value)
-  //   }
-   
-  //   if (e.relatedTarget.id = "numInput") {
-  //     this.numValidation(e.target.value)
-  //   }
-  // }
-
-
   nameValidation = (name) => {
-    let nameError = this.state.error.nameErr;
+    // let nameError = this.state.error.nameError;
+    let nameError = this.state.nameError;
     let validity = this.state.validity;
 
     console.log('name '+name)
@@ -94,7 +78,8 @@ export default class Form extends Component {
 
     this.setState({
       name,
-      error: {...this.state.error, nameError },
+      nameError,
+      // error: {...this.state.error, nameErr}, //only shows in console but not showing on ui for some reason
       validity
     });
 
@@ -103,12 +88,13 @@ export default class Form extends Component {
   }
 
   emailValidation = (email) => {
-    let emailError = this.state.error.emailErr;
+    // let emailError = this.state.error.emailErr;
+    let emailError = this.state.emailError;
     let validity = this.state.validity;
 
     let emailRegex = /.+@.+\.[A-Za-z]+$/
 
-    if (emailRegex.test(this.state.email)) {
+    if (!emailRegex.test(email)) {
       emailError = "Please enter a valid email";
       console.log(emailError)
     } else {
@@ -119,7 +105,8 @@ export default class Form extends Component {
 
     this.setState({
       email,
-      error: {...this.state.error, emailError},
+      emailError,
+      // error: {...this.state.error, emailError},
       validity
     })
 
@@ -128,7 +115,8 @@ export default class Form extends Component {
   };
 
   numValidation = (contact) => {
-    let numError = this.state.error.contactErr
+    // let numError = this.state.error.contactErr
+    let numError = this.state.contactError
     let validity = this.state.validity
     let numRegex = /^[0-9]$/
 
@@ -146,7 +134,8 @@ export default class Form extends Component {
 
     this.setState({
       contactNum: contact,
-      error: {...this.state.error, numError},
+      numError,
+      // error: {...this.state.error, numError},
       validity
     })
 
@@ -154,7 +143,8 @@ export default class Form extends Component {
   }
 
   abtValidation = (about) => {
-    let abtError = this.state.error.abtErr;
+    // let abtError = this.state.error.abtErr;
+    let abtError = this.state.abtError;
     let validity = this.state.validity;
 
     console.log('abt function: '+about)
@@ -176,7 +166,8 @@ export default class Form extends Component {
 
     this.setState({
       about,
-      error: {...this.state.error, abtError},
+      abtError,
+      // error: {...this.state.error, abtError},
       validity
     })
 
@@ -184,7 +175,8 @@ export default class Form extends Component {
   }
 
   dobValidation = (dob) => {
-    let dobError = this.state.error.dateErr
+    // let dobError = this.state.error.dateErr
+    let dobError = this.state.dobError
     let validity = this.state.validity
 
     console.log('dob: '+dob)
@@ -204,7 +196,8 @@ export default class Form extends Component {
 
     this.setState ({
       dateOfBirth: dob,
-      error: {...this.state.error, dobError},
+      dobError,
+      // error: {...this.state.error, dobError},
       validity
     })
 
@@ -243,28 +236,32 @@ export default class Form extends Component {
             <Box sx={{ my: 3 }}>
               <label>Name: </label>
               <input type="text" onChange = {this.changeHandler} placeholder="Lily Li" id= "nameInput" value = {this.state.name}/>
-              <span style={{ color: 'red' }}> {this.state.error.nameErr}</span>
+              <span style={{ color: 'red' }}> {this.state.nameError}</span>
             </Box>
             <Box sx={{ my: 3 }}>
               <label>Date of Birth: </label>
               <input type="date" onChange = {this.changeHandler} id = "dobInput" />
-              <span style={{ color: 'red' }}> {this.state.error.dateErr}</span>
+              <span style={{ color: 'red' }}> {this.state.dobError}</span>
+              {/* <span style={{ color: 'red' }}> {this.state.error.dateErr}</span> */}
             </Box>
             <Box sx={{ my: 3 }}>
               <label>Email: </label>
               <input type="text" onChange = {this.changeHandler} placeholder="lily@example.com" id= "emailInput" value = {this.state.email}/>
-              <span style={{ color: 'red' }}> {this.state.error.emailErr}</span>
+              <span style={{ color: 'red' }}> {this.state.emailError}</span>
+              {/* <span style={{ color: 'red' }}> {this.state.error.emailErr}</span> */}
             </Box>
             <Box sx={{ my: 3 }}>
               <label>Contact Number: </label>
               <input type="text" onChange = {this.changeHandler} placeholder="98765432" id= "numInput" value = {this.state.contactNum} />
-              <span style={{ color: 'red' }}> {this.state.error.contactErr}</span>
+              <span style={{ color: 'red' }}> {this.state.numError}</span>
+              {/* <span style={{ color: 'red' }}> {this.state.error.contactErr}</span> */}
             </Box>
 
             <Box sx={{ my: 3 }}>
               <label>Description: </label>
               <textarea onChange = {this.changeHandler} id= "abtInput" value = {this.state.about} placeholder="About Me..."></textarea>
-              <span style={{ color: 'red' }}> {this.state.error.abtErr}</span>
+              <span style={{ color: 'red' }}> {this.state.abtError}</span>
+              {/* <span style={{ color: 'red' }}> {this.state.error.abtErr}</span> */}
             </Box>
 
             <Button type= "submit" sx={{ my: 3 }} variant="contained">

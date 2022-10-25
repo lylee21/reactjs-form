@@ -13,8 +13,9 @@ class App extends Component {
     console.log(userInput)
 
     this.setState({
-      formData: [...this.state.formData, userInput]
+      formData: [userInput]
     })
+    console.log('hello '+this.state.formData);
   }
 
   render() {
